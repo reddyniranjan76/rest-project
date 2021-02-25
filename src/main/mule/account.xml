@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="accountFlow" doc:id="5a4fc482-2bae-42dc-8004-3dc017cffb41" >
+		<logger level="INFO" doc:name="Logger" doc:id="7866581b-2929-46d5-854c-4996c6b41d2d" message="enter into #[flow.name]"/>
+		<ee:transform doc:name="Transform Message" doc:id="0fdd2c4f-fd71-413f-8c60-327d3c816ddc" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	accountnumber:payload.account.accountNumber,
+	account:payload.account.'type',
+	status:payload.account.status,
+	customerID:payload.customer.customerID,
+	Name:payload.customer.firstName,
+	dob:now(),
+	emailid:payload.customer.emailid,
+	pincode:payload.customer.address.pincode
+	
+	}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="df788d6a-4f42-4d67-99ea-0f182b9f124f" message="Exit into #[flow.name]"/>
+	</flow>
+</mule>

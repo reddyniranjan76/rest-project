@@ -1,0 +1,14 @@
+#%RAML 1.0
+title: rest-project
+version: v1
+
+/account:
+  post:
+   body:
+    application/json:
+       type: object
+   responses:
+        200:
+          body:
+            application/json:
+               type: object   
